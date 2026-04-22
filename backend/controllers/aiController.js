@@ -1,8 +1,7 @@
-const nvidiaClient = require("../config/nvidia");
 const groqClient = require("../config/groq");
 const Progress = require("../models/Progress");
 
-// Helper function to call AI (Groq first, fallback to Nvidia)
+// Helper function to call AI (Groq)
 async function askAI(systemPrompt, userPrompt, jsonMode = true) {
   const messages = [
     { role: "system", content: systemPrompt },
@@ -10,7 +9,7 @@ async function askAI(systemPrompt, userPrompt, jsonMode = true) {
   ];
 
   const options = {
-    model: "llama-3.3-70b-versatile", // Groq model
+    model: "llama-3.3-70b-versatile",
     messages,
     temperature: 0.7,
     max_tokens: 4000,
@@ -20,18 +19,8 @@ async function askAI(systemPrompt, userPrompt, jsonMode = true) {
     options.response_format = { type: "json_object" };
   }
 
-  try {
-    // Try Groq first
-    const response = await groqClient.chat.completions.create(options);
-    return response.choices[0].message.content;
-  } catch (groqError) {
-    console.warn("Groq API failed, falling back to Nvidia:", groqError.message);
-
-    // Fallback to Nvidia
-    options.model = "meta/llama-3.1-405b-instruct";
-    const response = await nvidiaClient.chat.completions.create(options);
-    return response.choices[0].message.content;
-  }
+  const response = await groqClient.chat.completions.create(options);
+  return response.choices[0].message.content;
 }
 
 // Helper to safely parse JSON from response
@@ -252,7 +241,7 @@ Return a JSON object:
 
 Make the question practical and relevant to real-world ${role} work. Avoid generic questions.`;
 
-    const responseText = await askDeepSeek(systemPrompt, userPrompt, true);
+    const responseText = await askAI(systemPrompt, userPrompt, true);
     const parsed = safeParseJSON(responseText);
     res.json(parsed);
   } catch (error) {
