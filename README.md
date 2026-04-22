@@ -71,8 +71,7 @@ Create a .env file inside backend folder:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
-GEMINI_API_KEY=your_google_gemini_api_key
-YOUTUBE_API_KEY=your_youtube_v3_api_key
+GROQ_API_KEY=your_groq_api_key
 
 Start backend server:
 
