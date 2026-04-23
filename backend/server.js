@@ -16,10 +16,10 @@ const app = express();
 
 // Middleware - CORS with explicit options
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://eduflex-git-main-saiganeshragalla29-8253s-projects.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    // dynamically allow whatever origin the request is coming from
+    callback(null, true);
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
