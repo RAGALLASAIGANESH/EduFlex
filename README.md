@@ -40,8 +40,7 @@ Modern glassmorphism UI with smooth animations powered by Framer Motion.
 🍃 MongoDB & Mongoose  
 🔐 JWT Authentication  
 🔑 Bcryptjs  
-🤖 Google Gemini API  
-📺 YouTube Data API v3  
+🤖 Groq API  
 
 
 ⚙️ Prerequisites
@@ -50,8 +49,7 @@ Modern glassmorphism UI with smooth animations powered by Framer Motion.
 🍃 MongoDB (Local or Atlas)  
 
 🔑 Required API Keys  
-Google Gemini API  
-YouTube Data API v3  
+Groq API   
 
 
 🧑‍💻 Local Setup
